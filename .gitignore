@@ -156,3 +156,5 @@ replay_pid*
 .nfs*
 
 # End of https://www.toptal.com/developers/gitignore/api/kotlin,linux,intellij
+/.idea/
+/.gradle/

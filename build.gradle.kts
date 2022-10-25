@@ -29,6 +29,19 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("org.apache.poi:poi-ooxml:5.2.2")
+	implementation("org.apache.pdfbox:pdfbox:2.0.27")
+	implementation("org.apache.httpcomponents:httpclient:4.5.13")
+	implementation("no.tornado:tornadofx:1.7.20")
+
+	implementation("org.jetbrains.exposed:exposed-core:0.40.1")
+	implementation("org.jetbrains.exposed:exposed-jdbc:0.40.1")
+
+	implementation("mysql:mysql-connector-java:8.0.30")
+	implementation("com.microsoft.sqlserver:mssql-jdbc:11.2.1.jre17")
+	implementation("org.mariadb.jdbc:mariadb-java-client:3.0.6")
+	implementation("org.slf4j:slf4j-simple:2.0.3")
+
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
