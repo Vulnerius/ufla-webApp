@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
+
 }
 
 group = "org.hsmw"
@@ -20,11 +21,12 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") }
 }
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+	implementation("org.springframework.boot:spring-boot-starter-mustache")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -33,6 +35,14 @@ dependencies {
 	implementation("org.apache.pdfbox:pdfbox:2.0.27")
 	implementation("org.apache.httpcomponents:httpclient:4.5.13")
 	implementation("no.tornado:tornadofx:1.7.20")
+	implementation(kotlin("stdlib-js"))
+
+	//Fill this in with the version of kotlinx in use in your project
+	val kotlinxHtmlVersion = "0.8.0"
+	// include for JVM target
+	implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:$kotlinxHtmlVersion")
+		// include for Common module
+	implementation("org.jetbrains.kotlinx:kotlinx-html:$kotlinxHtmlVersion")
 
 	implementation("org.jetbrains.exposed:exposed-core:0.40.1")
 	implementation("org.jetbrains.exposed:exposed-jdbc:0.40.1")
