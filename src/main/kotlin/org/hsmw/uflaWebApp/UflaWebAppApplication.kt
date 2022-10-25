@@ -1,4 +1,4 @@
-package org.hsmw.UFLAWebApp
+package org.hsmw.uflaWebApp
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

@@ -1,4 +1,4 @@
-package org.hsmw.UFLAWebApp
+package org.hsmw.uflaWebApp
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
