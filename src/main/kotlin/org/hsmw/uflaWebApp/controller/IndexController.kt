@@ -10,7 +10,7 @@ class IndexController {
 
     @RequestMapping("/")
     fun getIndex(model: Model): String {
-        model["title"] = "Index"
+        model.addAttribute("headline", "ChoosingScreen")
         return "index/index"
     }
 }
