@@ -34,7 +34,6 @@ dependencies {
 	implementation("org.apache.poi:poi-ooxml:5.2.2")
 	implementation("org.apache.pdfbox:pdfbox:2.0.27")
 	implementation("org.apache.httpcomponents:httpclient:4.5.13")
-	implementation("no.tornado:tornadofx:1.7.20")
 	implementation(kotlin("stdlib-js"))
 
 	//Fill this in with the version of kotlinx in use in your project

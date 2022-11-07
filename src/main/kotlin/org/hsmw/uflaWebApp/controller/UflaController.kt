@@ -5,7 +5,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-class uflaController {
+class UflaController {
 
     @RequestMapping("/ufla")
     fun showUFLA(model: Model): String{
@@ -16,6 +16,13 @@ class uflaController {
         model.addAttribute("save", "Speichern")
         model.addAttribute("saveAs", "Speichern unter")
         model.addAttribute("help", "Hilfe")
+
         return "ufla/index"
     }
+
+    @RequestMapping("/api/ufla")
+    fun getFile(): String {
+        return "resources/static/js/UflaControls.js"
+    }
+
 }

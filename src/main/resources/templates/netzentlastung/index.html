@@ -2,24 +2,39 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Netzentlastung</title>
     <link rel="stylesheet" th:href="@{/style.css}">
-    <script th:src="@{/js/UflaControls.js}"></script>
 </head>
 <body>
 <div>
     <h1 th:text="${headline}"></h1>
 </div>
+<div id="left">
+    <h1>Zeitraum</h1>
+    von <br>
+    bis <br>
+</div>
+<div id="mid">
+    <h1>Umspannwerke</h1>
+    Netzregion <br>
+    Netzbetreiber <br>
+</div>
+<div id="right">
+    Anzahl Entlastungsstufen <br>
+    Stadtwerk <br>
+</div>
+
 <div id="container">
     <div>
         <ul style="list-style:none">
             <li>
-                <button th:text="${selTempl}" onclick="uploadTemplateFile()"></button>            </li>
-            <li>
-                <button th:text="${rep}" onclick="uploadReportingFile()"></button>
+                <button th:text="${query}" onclick=""></button>
             </li>
             <li>
-                <button th:text="${mon}" onclick="uploadMonitoringFile()"></button>
+                <button th:text="${block}" onclick=""></button>
+            </li>
+            <li>
+                <button th:text="${reset}" onclick=""></button>
             </li>
         </ul>
     </div>
@@ -29,9 +44,6 @@
     <div>
         <ul style="list-style:none">
             <li>
-                <button th:text="${save}" onclick="saveFile()"></button>
-            </li>
-            <li>
                 <button th:text="${saveAs}" onclick="saveAsFile()"></button>
             </li>
             <li>
@@ -40,5 +52,6 @@
         </ul>
     </div>
 </div>
+
 </body>
 </html>
