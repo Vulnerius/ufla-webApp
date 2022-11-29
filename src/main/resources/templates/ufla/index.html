@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/style.css}">
-    <script th:src="@{/js/UflaControls.js}"></script>
 </head>
 <body>
 <div>
@@ -12,33 +11,51 @@
 </div>
 <div id="container">
     <div>
-        <ul style="list-style:none">
-            <li>
-                <button th:text="${selTempl}" onclick="uploadTemplateFile()"></button>            </li>
-            <li>
-                <button th:text="${rep}" onclick="uploadReportingFile()"></button>
-            </li>
-            <li>
-                <button th:text="${mon}" onclick="uploadMonitoringFile()"></button>
-            </li>
-        </ul>
+        <form method="POST" action="/api/uploadTemplate" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Vorlage auswählen</td>
+                    <td><input type="file" name="template.xlsx"></td>
+                    <td><input type="submit" value="Upload"></td>
+                </tr>
+            </table>
+        </form>
+        <form method="POST" action="/api/uploadReporting" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Reporting</td>
+                    <td><input type="file" name="reporting.xlsx"></td>
+                    <td><input type="submit" value="Upload"></td>
+                </tr>
+            </table>
+        </form>
+        <form method="POST" action="/api/uploadMonitoring" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Monitoring</td>
+                    <td><input type="file" name="monitoring.xlsx"></td>
+                    <td><input type="submit" value="Upload"></td>
+                </tr>
+            </table>
+        </form>
     </div>
-    <div>
-        <textarea></textarea>
-    </div>
-    <div>
-        <ul style="list-style:none">
-            <li>
-                <button th:text="${save}" onclick="saveFile()"></button>
-            </li>
-            <li>
-                <button th:text="${saveAs}" onclick="saveAsFile()"></button>
-            </li>
-            <li>
-                <button th:text="${help}"></button>
-            </li>
-        </ul>
-    </div>
+</div>
+<div>
+    <textarea th:text="${log}"></textarea>
+</div>
+<div>
+    <ul style="list-style:none">
+        <li>
+            <button th:text="${save}" onclick="saveFile()"></button>
+        </li>
+        <li>
+            <button th:text="${saveAs}" onclick="saveAsFile()"></button>
+        </li>
+        <li>
+            <button th:text="${help}"></button>
+        </li>
+    </ul>
+</div>
 </div>
 </body>
 </html>

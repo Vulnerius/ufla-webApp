@@ -20,9 +20,4 @@ class UflaController {
         return "ufla/index"
     }
 
-    @RequestMapping("/api/ufla")
-    fun getFile(): String {
-        return "resources/static/js/UflaControls.js"
-    }
-
 }
