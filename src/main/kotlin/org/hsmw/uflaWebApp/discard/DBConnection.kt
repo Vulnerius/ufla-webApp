@@ -1,6 +1,6 @@
 package org.hsmw.uflaWebApp.discard
 
-import hsmw.config.Configurations
+import org.hsmw.uflaWebApp.config.Configurations
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.name
 import org.jetbrains.exposed.sql.selectAll

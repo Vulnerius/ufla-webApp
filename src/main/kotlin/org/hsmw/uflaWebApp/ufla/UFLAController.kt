@@ -1,12 +1,14 @@
 package org.hsmw.uflaWebApp.ufla
 
-import hsmw.LanguageTexts
-import hsmw.config.Configurations
+import org.hsmw.uflaWebApp.LanguageTexts
+import org.hsmw.uflaWebApp.config.Configurations
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.springframework.stereotype.Service
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
+@Service
 class UFLAController {
     private var templateFile = File("")
     var textStrings: MutableList<String> =

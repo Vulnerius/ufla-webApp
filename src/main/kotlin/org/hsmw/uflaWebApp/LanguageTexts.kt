@@ -1,5 +1,8 @@
-package hsmw
+package org.hsmw.uflaWebApp
 
+import org.springframework.stereotype.Service
+
+@Service
 object LanguageTexts {
 
     fun get(language: String): MutableList<String> {

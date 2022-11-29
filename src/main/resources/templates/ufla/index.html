@@ -39,23 +39,19 @@
             </table>
         </form>
     </div>
-</div>
-<div>
-    <textarea th:text="${log}"></textarea>
-</div>
-<div>
-    <ul style="list-style:none">
-        <li>
-            <button th:text="${save}" onclick="saveFile()"></button>
-        </li>
-        <li>
-            <button th:text="${saveAs}" onclick="saveAsFile()"></button>
-        </li>
-        <li>
-            <button th:text="${help}"></button>
-        </li>
-    </ul>
-</div>
+
+    <div>
+        <textarea th:text="${log}"></textarea>
+    </div>
+    <div>
+        <ul style="list-style:none">
+            <li>
+                <form action="/ufla/download">
+                    <td><input type="submit" value="Download"></td>
+                </form>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

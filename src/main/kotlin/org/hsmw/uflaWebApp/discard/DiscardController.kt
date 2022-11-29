@@ -1,6 +1,6 @@
 package org.hsmw.uflaWebApp.discard
 
-import hsmw.config.Configurations
+import org.hsmw.uflaWebApp.config.Configurations
 import java.time.YearMonth
 
 class DiscardController {

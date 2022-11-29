@@ -1,7 +1,7 @@
 package org.hsmw.uflaWebApp.discard
 
 import org.hsmw.uflaWebApp.Main
-import hsmw.config.Configurations
+import org.hsmw.uflaWebApp.config.Configurations
 import org.apache.poi.ss.usermodel.FillPatternType
 import org.apache.poi.ss.usermodel.IndexedColors
 import org.apache.poi.xssf.usermodel.XSSFFont

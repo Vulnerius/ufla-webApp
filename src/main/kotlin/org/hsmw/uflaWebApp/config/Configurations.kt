@@ -1,20 +1,23 @@
-package hsmw.config
+package org.hsmw.uflaWebApp.config
 
+import org.springframework.context.annotation.Configuration
+import org.springframework.stereotype.Service
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.io.File
 import java.io.FileInputStream
 import javax.xml.parsers.DocumentBuilderFactory
 
+@Configuration
 class Configurations {
-    val region: Element
+    final val region: Element
     private val configFile: Document
-    internal val configPath: String
-    val templateConfig: Element
-    val reportingConfig: Element
-    val monitoringConfig: Element
-    val discardConfig: Element
-    val discardBlocklist: Element
+    private final val configPath: String
+    final val templateConfig: Element
+    final val reportingConfig: Element
+    final val monitoringConfig: Element
+    final val discardConfig: Element
+    final val discardBlocklist: Element
 
     init {
         val osName = System.getProperty("os.name")
@@ -31,10 +34,11 @@ class Configurations {
                 configPath = "config/Config.xml"
             } else {
                 configFile = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                    .parse(javaClass.getResourceAsStream("/hsmw/Config.xml"))
+                    .parse(javaClass.getResourceAsStream("/static/hsmw/Config.xml"))
                 configPath = "resources"
             }
         }
+
         templateConfig = getConfigElement("template")
         reportingConfig = getConfigElement("reporting")
         monitoringConfig = getConfigElement("monitoring")
@@ -44,7 +48,7 @@ class Configurations {
     }
 
     //returns an XML-Element from the config File
-    internal fun getConfigElement(elementTag: String): Element {
+    internal final fun getConfigElement(elementTag: String): Element {
         val configList = configFile.getElementsByTagName(elementTag)
         return configList.item(0) as Element
     }
