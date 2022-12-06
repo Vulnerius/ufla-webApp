@@ -1,12 +1,14 @@
 package org.hsmw.uflaWebApp.discard
 
 import org.hsmw.uflaWebApp.config.Configurations
+import org.springframework.stereotype.Service
 import java.time.YearMonth
 
+@Service
 class DiscardController {
     lateinit var connection: DBConnection
 
-    val outputWriter: ExcelWriter = ExcelWriter()
+    val outputWriter: ExcelWriter = ExcelWriter(this)
     internal val query = Query(this)
 
     lateinit var mappedRegionTables: List<List<RegionPowerSupplyData>>

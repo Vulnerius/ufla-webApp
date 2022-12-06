@@ -1,0 +1,14 @@
+<configs>
+    <general version="2.0" team="Hsmw &amp; Mitteldeutsche Netzgesellschaft Strom mbH" copyright="© 03.07.2022"/>
+    <reporting HeaderString="Leistung P [MW]" HeaderRows="10" NameInTemplate="Reporting (jährlich)"/>
+    <monitoring HeaderString="Summe unter Beachtung wlra" HeaderRows="1"
+                NameInTemplate="Monitoring (2- bis 5-jährlich)"/>
+    <template NameOfFirstSheet="Deckblatt" HeaderRowsReporting="8" ColToBeFilledReporting="4" HeaderRowsMonitoring="9"
+              ColToBeFilledMonitoring="6"/>
+    <discardDatabase Host="" Port="" databaseName="" UserName="" Password=""
+                     Struktur="mariadb"/>
+    <regionData Identifier=""/>
+    <blocklist items=""/>
+
+    <preferences language="de"/>
+</configs>

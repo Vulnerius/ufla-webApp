@@ -1,23 +1,33 @@
 package org.hsmw.uflaWebApp.ufla
 
-import org.hsmw.uflaWebApp.Main
-import org.hsmw.uflaWebApp.Reader
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.hsmw.uflaWebApp.Reader
+import org.hsmw.uflaWebApp.config.Configurations
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import org.w3c.dom.Element
 import java.io.FileInputStream
 
-class Monitoring(templateConfig: Element, monitoringConfig : Element) : Reader {
+@Component
+class Monitoring @Autowired constructor(private val config: Configurations) : Reader {
 
-    private val templateC : Element = templateConfig
-    private val config : Element = monitoringConfig
+    private val templateConfig: Element = config.templateConfig
+    private val monitoringConfig: Element = config.monitoringConfig
+    private lateinit var uflaController: UFLAController
 
     data class MonitoringCell(
         val timeStamp: String,
         val value: Double
     )
+
+    fun setController(uflaController: UFLAController){
+        this.uflaController = uflaController
+    }
+
     /*
       creates a XSSFWorkbook to calculate the active UFLA
       @param name: path of input File
@@ -27,7 +37,7 @@ class Monitoring(templateConfig: Element, monitoringConfig : Element) : Reader {
         try {
             fillMonitoring(workbook)
         } catch (e: Exception) {
-            Main.controllerK.reportError(e.message.toString() + Main.controllerK.textStrings[15])
+            uflaController.reportError(e.message.toString() + uflaController.textStrings[15])
         }
     }
 
@@ -42,7 +52,7 @@ class Monitoring(templateConfig: Element, monitoringConfig : Element) : Reader {
             val listOfTimestampValuePairs: MutableList<MonitoringCell> = mutableListOf()
             val calcCol = findSumCol(sheet.getRow(0))
             sheet.asSequence()
-                .drop(config.getAttribute("HeaderRows").toInt())
+                .drop(monitoringConfig.getAttribute("HeaderRows").toInt())
                 .forEach sheetIteration@{ row ->
                     if(calcCol == -1) return@forEach
                     listOfTimestampValuePairs.add(getTimeStamp(row, calcCol))
@@ -68,7 +78,7 @@ class Monitoring(templateConfig: Element, monitoringConfig : Element) : Reader {
      */
     private fun findSumCol(row: Row): Int {
         row.forEachIndexed { index, cell ->
-            if (cell.toString().lowercase() == config.getAttribute("HeaderString").lowercase())
+            if (cell.toString().lowercase() == monitoringConfig.getAttribute("HeaderString").lowercase())
                 return index
         }
         return -1
@@ -79,8 +89,8 @@ class Monitoring(templateConfig: Element, monitoringConfig : Element) : Reader {
         fills the template Sheet with data
      */
     private fun fillTemplate(monitoringDataForEachSheet: List<List<MonitoringCell>>) {
-        val toFill = findSheet(Main.controllerK.copiedTemplate)
-        val skipper = templateC.getAttribute("HeaderRowsMonitoring").toInt()
+        val toFill = findSheet(uflaController.copiedTemplate)
+        val skipper = templateConfig.getAttribute("HeaderRowsMonitoring").toInt()
         monitoringDataForEachSheet.forEachIndexed { index, element ->
             element.forEachIndexed { eleIndex, elem ->
                 setCellValue(index, skipper + eleIndex, elem.value, toFill)
@@ -93,7 +103,7 @@ class Monitoring(templateConfig: Element, monitoringConfig : Element) : Reader {
     */
     private fun findSheet(copiedTemplate: XSSFWorkbook): XSSFSheet? {
         copiedTemplate.forEach { sheet ->
-            if (sheet.sheetName.equals(config.getAttribute("NameInTemplate")))
+            if (sheet.sheetName.equals(monitoringConfig.getAttribute("NameInTemplate")))
                 return sheet as XSSFSheet
         }
         return null
@@ -107,10 +117,10 @@ class Monitoring(templateConfig: Element, monitoringConfig : Element) : Reader {
         @param sheet: sheet to be filled with data
      */
     private fun setCellValue(listIndex: Int, rowCounter: Int, value: Double, sheet: Sheet?) {
-        val colToBeFilled = templateC.getAttribute("ColToBeFilledMonitoring").toInt() - 1
+        val colToBeFilled = templateConfig.getAttribute("ColToBeFilledMonitoring").toInt() - 1
 
         if (sheet == null)
-            throw Exception(Main.controllerK.textStrings[22])
+            throw Exception(uflaController.textStrings[22])
         val cellToBeFilled = sheet.getRow(rowCounter).getCell(colToBeFilled + listIndex)
         cellToBeFilled.setCellValue(cellToBeFilled.numericCellValue + value)
         }

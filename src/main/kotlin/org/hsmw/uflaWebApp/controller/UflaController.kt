@@ -1,5 +1,6 @@
 package org.hsmw.uflaWebApp.controller
 
+import org.hsmw.uflaWebApp.ufla.UFLAController
 import org.hsmw.uflaWebApp.webStorage.StorageService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.ByteArrayResource
@@ -19,7 +20,7 @@ import java.nio.file.Paths
 
 
 @Controller
-class UflaController @Autowired constructor(private val storageService: StorageService) {
+class UflaController @Autowired constructor(private val storageService: StorageService, private val uflaController: UFLAController) {
 
     @RequestMapping("/ufla")
     fun showUFLA(model: Model): String {
@@ -34,6 +35,7 @@ class UflaController @Autowired constructor(private val storageService: StorageS
     @RequestMapping(path = ["/ufla/download"], method = [RequestMethod.GET])
     @Throws(IOException::class)
     fun download(): ResponseEntity<Resource?>? {
+        uflaController.writeSaveFile()
         val templateFileName = "template.xlsx"
         val file = File(storageService.load(templateFileName).toUri())
 

@@ -1,28 +1,22 @@
 package org.hsmw.uflaWebApp
 
-import org.hsmw.uflaWebApp.discard.DiscardController
-import org.hsmw.uflaWebApp.discard.Months
-import org.hsmw.uflaWebApp.ufla.UFLAController
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.hsmw.uflaWebApp.discard.Months
+import org.springframework.stereotype.Service
 import java.io.FileInputStream
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
-object Main {
-    val controllerK = UFLAController()
-
-    //    lateinit var discardController: DiscardController
-    val discardController = DiscardController()
-}
-
 fun Double.format(digits: Int): Double = "%.${digits}f".format(this).toDouble()
 
+@Service
 interface Reader {
     companion object {
         fun createWorkbook(fs: FileInputStream): XSSFWorkbook = XSSFWorkbook(fs)
     }
 }
 
+@Service
 interface QueryConverter {
     companion object {
         fun convertToSqlString(input: YearMonth): String {
@@ -32,6 +26,7 @@ interface QueryConverter {
 
 }
 
+@Service
 interface MonthMapping {
     companion object {
         fun changeMonthNumToString(month: String): Months {

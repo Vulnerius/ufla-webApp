@@ -3,31 +3,39 @@ package org.hsmw.uflaWebApp.ufla
 import org.hsmw.uflaWebApp.LanguageTexts
 import org.hsmw.uflaWebApp.config.Configurations
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.nio.file.Path
+import kotlin.math.log
 
 @Service
-class UFLAController {
+class UFLAController @Autowired constructor(private val monitoring: Monitoring, private val reporting: Reporting) {
     private var templateFile = File("")
-    var textStrings: MutableList<String> =
+    final var textStrings: MutableList<String> =
         LanguageTexts.get(Configurations().getConfigElement("preferences").getAttribute("language"))
-    private val monitoring: Monitoring = Monitoring(Configurations().templateConfig, Configurations().monitoringConfig)
-    val reporting: Reporting = Reporting(Configurations().templateConfig, Configurations().reportingConfig, textStrings)
     var copiedTemplate = XSSFWorkbook()
 
-    fun writeSaveFile(name: String): Boolean {
-        if (name.isBlank()) return false
+    fun writeSaveFile(): Boolean {
+        if (templateFile.path.isBlank()) return false
         if (copiedTemplate.numberOfSheets == 0) {
             reportError(textStrings[30])
             return false
         } else
-            if (!name.endsWith(".xlsx", false))
-                copiedTemplate.write(FileOutputStream("$name.xlsx"))
+            if (!templateFile.path.endsWith(".xlsx", false))
+                copiedTemplate.write(FileOutputStream("${templateFile.path}.xlsx"))
             else
-                copiedTemplate.write(FileOutputStream(name))
+                copiedTemplate.write(FileOutputStream(templateFile.path))
         return true
+    }
+
+    fun setTemplateFile(file: Path){
+        templateFile = file.toFile()
+        setCopy()
+        monitoring.setController(this)
+        reporting.setController(this)
     }
 
     fun setCopy() {
@@ -37,12 +45,12 @@ class UFLAController {
             reportError(textStrings[22])
     }
 
-    fun setReportingFile(file: String) {
-        reporting.start(file)
+    fun setReportingFile(file: Path) {
+        reporting.start(file.toString())
     }
 
-    fun setMonitoringFile(file: String) {
-        monitoring.start(file)
+    fun setMonitoringFile(file: Path) {
+        monitoring.start(file.toString())
     }
 
     fun canEvaluate(): Boolean {
@@ -50,11 +58,11 @@ class UFLAController {
     }
 
     fun reportFlaw(flaw: String) {
-        //TODO
+        println(flaw)
     }
 
     fun reportError(error: String) {
-        //TODO
+        println(error)
     }
 
     private fun checkValidTemplate(workbook: XSSFWorkbook): Boolean {

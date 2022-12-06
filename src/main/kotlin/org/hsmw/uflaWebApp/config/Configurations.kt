@@ -1,6 +1,10 @@
 package org.hsmw.uflaWebApp.config
 
+import org.springframework.beans.factory.FactoryBean
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -8,15 +12,15 @@ import java.io.File
 import java.io.FileInputStream
 import javax.xml.parsers.DocumentBuilderFactory
 
-@Configuration
-class Configurations {
+@Component
+class Configurations{
     final val region: Element
     private val configFile: Document
     private final val configPath: String
-    final val templateConfig: Element
-    final val reportingConfig: Element
-    final val monitoringConfig: Element
-    final val discardConfig: Element
+    val templateConfig: Element
+    val reportingConfig: Element
+    val monitoringConfig: Element
+    val discardConfig: Element
     final val discardBlocklist: Element
 
     init {
@@ -48,7 +52,7 @@ class Configurations {
     }
 
     //returns an XML-Element from the config File
-    internal final fun getConfigElement(elementTag: String): Element {
+    internal fun getConfigElement(elementTag: String): Element {
         val configList = configFile.getElementsByTagName(elementTag)
         return configList.item(0) as Element
     }

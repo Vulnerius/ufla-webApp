@@ -1,16 +1,16 @@
 package org.hsmw.uflaWebApp.discard
 
-import org.hsmw.uflaWebApp.Main
-import org.hsmw.uflaWebApp.config.Configurations
 import org.apache.poi.ss.usermodel.FillPatternType
 import org.apache.poi.ss.usermodel.IndexedColors
 import org.apache.poi.xssf.usermodel.XSSFFont
 import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.hsmw.uflaWebApp.config.Configurations
+import org.springframework.beans.factory.annotation.Autowired
 import java.io.FileOutputStream
 
 
-class ExcelWriter {
+class ExcelWriter(@Autowired private val discardController: DiscardController) {
     private val workbook: XSSFWorkbook = XSSFWorkbook()
 
     private val customStyle = workbook.createCellStyle()
@@ -40,7 +40,7 @@ class ExcelWriter {
         try {
             workbook.setSheetName(workbook.getSheetIndex(querySheet), newSheetName)
         } catch (e: Exception) {
-            Main.discardController.errorThrown = true
+            discardController.errorThrown = true
             //TODO
             println(e.message)
         }
